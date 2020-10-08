@@ -1,0 +1,353 @@
+JavaScript语法
+<script>…</script>
+      <script>
+	document.writeln("JavaScript脚本示例");
+      </script>
+可放在HTML文件中的任意位置，在浏览器读到后就会解释执行
+JavaScript中区分大小写（HTML不区分）
+
+
+练习实例1
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo">
+JavaScript 能改变 HTML 元素的内容。
+</p>
+<script>
+function myFunction()
+{
+x=document.getElementById("demo"); // 找到元素
+x.innerHTML="Hello JavaScript!"; // 改变内容
+}
+</script>
+<form>
+<input type="button" onclick="myFunction()">
+</form>
+</body>
+</html>
+
+
+练习实例2
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+function check() {
+    var name = document.getElementById("name").value;
+    var phone = document.getElementById("phone").value;
+    if(!/^[a-z]+$/i.test(name)) {
+        alert("姓名中只能包含英文字母\n请重新输入");
+    }
+    else if(!/^\d{7}(\d{1}(\d{3}(\d{1})?)?)?$/.test(phone)) {
+ alert("电话号码必须为数字且长度为 7,8,11或12位" + "\n请重新输入");
+    }
+    else {
+        alert("正确");
+    }
+}
+</script>
+<form>
+姓名：<input type="text" name="name" id="name" value="" />
+电话：<input type="text" name="phone" id="phone" value="" />
+<input type="button" onclick="check()">
+</form></body></html>
+
+
+练习实例3
+<script>
+x=6+6;
+document.write(x);
+document.write("<br/>");
+x="6"+"5";
+document.write(x);
+document.write("<br/>");
+x=6+"5";
+document.write(x);
+document.write("<br/>");
+x="6"+5;
+document.write(x);
+document.write("<br/>");
+</script>
+
+
+练习实例4
+<script>
+function myFunction(name,job)
+{
+alert("Welcome " + name + ", the " + job);
+}
+</script>
+
+<form>
+<input type=“button” onclick="myFunction('Bill Gates','CEO')">
+</form>
+
+
+练习实例5
+<script>
+	var d = new Date();
+	var theDay=d.getDay();
+switch (theDay) {
+case 5:
+document.write("<b>总算熬到星期五了。</b>");
+break;
+case 6:
+document.write("<b>哈哈，周末啦！</b>");
+break;
+case 0:
+document.write("<b>明天又要上班，想想就烦。</b>");
+break;
+default:
+document.write("<b>每个工作日慢得都象蜗牛爬啊！</b>"); }
+</script>
+
+
+练习实例6
+<script>
+	var x;
+	var hobbies = new Array();         //创建一个新的数组
+	hobbies[0] = "JavaScript";
+	hobbies[1] = "CSS";
+	hobbies[2] = "篮球";
+	for (x in hobbies)                     //数组中的每一个变量
+	{  document.write(hobbies[x] + "<br/>"); }
+</script>
+
+
+练习实例7
+//求字符串长度
+<script>
+var vText="I like blabla.cn";
+document.write("<p>" + vText + "</p>");
+document.write(vText.length);
+</script>
+
+//定位字符
+<script>
+var vText="I like blabla.cn";
+var vNo=vText.indexOf("b");
+document.write("<p>"+vText+"</p>");
+document.write(vNo);
+</script>
+
+//字符串大小写转化
+<script>
+var str="Hello World!";
+document.write(str.toUpperCase()); 
+</script>
+
+//为字符串添加样式
+<script>
+var txt="Hello World!";
+document.write("<p>Bold: " + txt.bold() + "</p>");
+document.write("<p>Italic: " + txt.italics() + "</p>"); </script>
+
+
+练习实例8
+//取大小值
+<script>
+document.write(Math.max(1,2,3)); 
+</script>
+
+//舍入
+<script>
+document.write(Math.round(0.60) + "<br/>");
+document.write(Math.round(0.50) + "<br/>");
+document.write(Math.round(0.49) + "<br/>");</script>
+
+//随机数
+<script>
+document.write("<p>"+ Math.random()+"</p>");
+document.write(Math.floor(Math.random()*11)) ;
+</script>
+//Math.random()产生0~1随机数
+//floor求一个最接近它的整数，它的值小于或等于这个浮点数
+
+//平方根
+<script>
+document.write(Math.sqrt(1) + "<br />");
+document.write(Math.sqrt(9) + "<br />");
+</script>
+
+
+练习实例9
+//创建Date对象
+<script>
+var todaysDate=new Date();
+document.write(todaysDate); 
+</script>
+
+//天数
+<script>
+ var birthday = new Date(“Feb 10, 2020 08:35:00");
+document.write(birthday.getDate());
+</script>
+
+
+练习实例10
+<script>
+var a=new Array();
+var b=new Array(5,4,3,"first","test,string");
+var c=new Array(20);
+a[1.23]="test";
+document.writeln("a[1.23]="+a[1.23]);
+document.writeln("a.length="+a.length);
+document.writeln("b.length="+b.length);
+document.writeln("c.length="+c.length);
+a[3]="Test";
+document.write("<br/>a[3]="+a[3]);
+document.write("<br/>a.length="+a.length); 
+for (var i=0;i<20;i++)
+  { c[i]=i;
+    document.write("<br/>c[i]="+c[i]);
+  }
+
+ document.write("<br/>c的元素join()方法后是："+c.join());
+  
+ //数组的reverse()方法
+ c.reverse();
+ document.write("<br />c的元素在reverse()方法再join()后的结果 是："+c.join("|"));
+ </script>
+
+
+练习实例11
+<script>
+function func1(){
+alert("打开");
+}
+</script>
+
+<body onload="func1()">
+</body>
+
+
+练习实例12
+<script>
+window.open ('new.html','newwindowname','height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no') 
+</script>
+
+说明：
+1 'new.html' 要载入窗体的URL
+2 'newwindowname'新建窗体的名称
+3 features -- 代表窗体特性的字符串，字符串中每个特性使用逗号分隔
+
+
+练习实例13
+<script>
+function openwin() { 
+window.open ('new.html','newwindowname','height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no') }
+</script>
+
+<body onload="openwin()"> </body> 
+
+
+练习实例14
+<!DOCTYPE html>
+<html>
+<body> 
+<script>
+function getValue()
+{
+var x=document.getElementById("test")
+alert(x.innerHTML)
+}
+</script>
+<div id="test">  
+          <span style="color:red">test1</span> test2     
+</div> 
+<h1 onclick="getValue()">点击</h1>
+</body> 
+</html>
+
+
+练习实例15
+<script>
+function getElements()
+  {
+  var x=document.getElementsByName("myInput");
+  alert(x.length);
+  }
+</script>
+
+<input name="myInput" type="text" size="20" /><br />
+<input name="myInput" type="text" size="20" /><br />
+<input name="myInput" type="text" size="20" /><br />
+<br />
+<input type="button" onclick="getElements()" value="名为 'myInput' 的元素有多少个？" />
+
+
+练习实例16
+<script>
+function getElements()
+  {
+  var x=document.getElementsByTagName("input");
+  alert(x.length);
+  }
+</script>
+
+<input name="myInput" type="text" size="20" /><br />
+<input name="myInput" type="text" size="20" /><br />
+<input name="myInput" type="text" size="20" /><br />
+<br />
+<input type="button" onclick="getElements()" value="名为 'input' 的元素有多少个？" />
+
+
+练习实例17
+<script>
+function createNewDoc()
+{
+    var newDoc = document.open();
+    var txt = "这是新的文档";
+    newDoc.write(txt);
+    document.bgColor="green"; 
+    newDoc.close();
+}
+</script>
+<input type="button" onclick="createNewDoc()" value="点击这里写入新文档" />
+
+
+练习实例18-计算器
+<html>
+<head>
+  <title>一个简易计算器</title>
+  <script language="javascript">
+function ex(x)
+     {
+       if(x=="=")     window.document.form1.text1.value=eval(window.document.form1.text1.value);
+       else
+          if(x=="clear")
+window.document.form1.text1.value="";
+     else 
+window.document.form1.text1.value=window.document.form1.text1.value+x;
+     }
+  </script>
+</head>
+<body>
+  <form name="form1">
+    <input type="text" name="text1" value=""/>
+<p>
+    <input type="button" name="b0" value="0" onclick="ex(this.value)"/>
+     <input type="button" name="b1" value="1" onclick="ex(this.value) "/>
+     <input type="button" name="b2" value="2" onclick="ex(this.value)"/>
+  </p>
+<p><input type="button" name="b3" value="3" onclick="ex(this.value)"/>
+     <input type="button" name="b4" value="4" onclick="ex(this.value)"/>
+     <input type="button" name="b5" value="5" onclick="ex(this.value)"/>
+  </p>
+  <p><input type="button" name="b6" value="6" onclick="ex(this.value)"/>
+     <input type="button" name="b7" value="7" onclick="ex(this.value)"/>
+     <input type="button" name="b8" value="8" onclick="ex(this.value)"/>
+  </p>
+<p>
+     <input type="button" name="b9" value="9" onclick="ex(this.value)"/>
+<input type="button" name="add" value="+" onclick="ex(this.value)"/>
+     <input type="button" name="sub" value="-" onclick="ex(this.value)"/></p>
+  <p><input type="button" name="mul" value="*" onclick="ex(this.value)"/>
+     <input type="button" name="div" value="/" onclick="ex(this.value)"/>
+     <input type="button" name="result" value="=" onclick="ex(this.value)"/></p>
+  <p><input type="button" name="clear" value="clear" onclick="ex(this.value)"/></p>
+  </form>
+</body>
+</html>
+

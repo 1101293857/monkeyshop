@@ -1,0 +1,202 @@
+为什么需要JSP？
+JSP没出现之前，就已经出现了Servlet技术
+Servlet利用输出流已经能动态地生成HTML页面
+out.println("<HTML>")
+Servlet中包含了大量的HTML标签、大量的静态文本及格式等，导致了Servlet的开发效率非常低下
+JSP通过在HTML页面中嵌入JAVA代码，使其静态部分无需JAVA程序控制，只有那些需要从数据库读取或需要动态生成的页面内容，才使用JAVA控制
+
+
+JSP（Java Server Pages）在传统网页HTML文件(.html)中插入Java程序段和JSP标记(tag)，从而形成JSP文件(.jsp)
+
+jsp代码示例1
+<% for(int i=1;i<=5;i++){%>
+<h<%=i%>>你好</h<%=i%>>
+<%}%>
+
+
+jsp代码示例2——声明
+<% i++;  %>
+<p>您是第 <%= i %>个访问本站的客户。</p>
+<%! int i=0; %>
+
+
+声明在<%! %>内的变量和方法是一个类成员变量和方法
+声明在<% %>内的变量是一个方法的变量也就是局部变量
+jsp代码示例3
+<%!   
+ int count = 0;              
+ void method(){}       
+%>  
+<%  
+  int i= 0;              
+%> 
+
+
+JSP指令元素
+JSP指令是从JSP页面向服务器发送的消息，它们不产生任何可见的输出，为了告诉JSP引擎如何对JSP页面进行处理
+page用于定义JSP文件中的全局属性
+include把JSP页面内容分割成多个可管理元素
+taglib用来创建自定义标记
+
+jsp代码示例4
+include指令用于向JSP页面内某处静态插入HTML、JSP或其他文本文件，作用是将页面分成不同部分，有助于实现页面的模块化
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>include 示例</h1>
+<%@ include file="copyright.jsp" %>
+</body> 
+</html>
+
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" %>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h3>This is from the file named copyright.jsp</h3>
+</body> 
+</html>
+  
+taglib指令标签元素
+jsp代码示例5
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<c:out value="Hello JSP 2.0 !!" /><br/>
+<c:out value="${ 3 + 5 }" /><br/>
+<% out.print("Hello JSP 2.0 !!");%>
+</body> 
+</html>
+
+
+JSP动作组件
+< jsp:include>：在页面被请求的时候引入文件
+< jsp:forward>：把请求转到一个新的页面
+< jsp:param>：在动作组件中引入参数信息
+< jsp:plugin>：插入一个Applet或Bean 
+< jsp:useBean> < jsp:setProperty> <jsp:getProperty>：调用使用JavaBean
+
+jsp:include动作组件把指定文件插入正在生成的页面
+指令元素<%@?include?file=" "%> 与动作组件<jsp:include page=“”/>区别
+指令元素<%@?include %>读入新页面内容并和原来页面合成一个文件，然后被转化成servlet
+动作组件<jsp:include >是两个文件分别被转化成servlet，然后原来页面运行时调用新页面
+jsp代码示例6
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<%@ include file="copyright.jsp" %>
+<jsp:include page="copyright.jsp" />
+</body> 
+</html>
+
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<p>您是第 <%=i%>个访问本站的客户</p>
+<%!int i=3; %>
+</body> 
+</html>
+
+
+jsp:forward动作组件控制从一个页面转到另一个页面（在向目标文件转发过程中，可以向目标文件传送参数和值）
+jsp代码示例7
+
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<body>
+<p>当前推荐图书清单:
+<% double i=Math.random();
+if(i>=0.5) {%>
+<jsp:forward page="1.jsp"/> 
+<%}
+else  {%>
+<jsp:forward page="2.jsp"/>
+<%}%>
+</body> 
+</html>
+
+1.jsp
+<body>
+<ul>
+<li>国画</li>
+<li>梅次故事</li>
+<li>朝夕之间</li>
+</ul>
+</body> 
+</html>
+
+2.jsp
+<body>
+<ul>
+<li>J2EE 编程技术 </li>
+<li>J2EE服务器端高级编程</li>
+<li>JSP高级编程</li>
+</ul>
+</body> 
+</html>
+
+
+jsp:param动作组件用于传递参数信息，配合<jsp:include>、<jsp:forward>或<jsp:plugin>动作组件一起使用
+jsp代码示例8
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<body>
+加载文件效果：
+   <jsp:include page="add.jsp">
+   <jsp:param name="start" value="0" />
+   <jsp:param name="end" value="100" />
+   </jsp:include>
+</body> 
+</html>
+
+add.jsp
+<body>
+<%  String start=request.getParameter("start");   //获取值
+	String end=request.getParameter("end"); //获取值
+	int s=Integer.parseInt(start);
+	int e=Integer.parseInt(end);
+	int sum=0;
+         for(int i=s;i<=e;i++)
+            { sum=sum+i; }
+%>
+从<%=start%>到<%=end%>的连续和是<br/> <%=sum%>
+</body> 
+
+jsp代码示例9
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<body>
+向jsp:forward传递参数示例：
+<jsp:forward page="welcome.jsp">
+     <jsp:param name="name" value="John" />
+</jsp:forward>
+</body> 
+</html>
+
+welcome.jsp
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<body>
+欢迎您！ <%= request.getParameter("name")%>
+</body> 
+</html>
